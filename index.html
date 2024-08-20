@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-mx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptar de Texto</title>
+    <link rel="shortcut icon" href="img/alienwaiting15.png" type="image/x-icon" />
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <div class="container">
+        <!-- Sección de entrada de texto para encriptar -->
+        <div class="encriptar">
+            <textarea 
+                name="texto"
+                class="texto"
+                id="texto"
+                cols="30"
+                rows="10"
+                placeholder="Ingresa el texto aquí:"
+            ></textarea>
+            <!-- Instrucciones para el usuario -->
+            <p class="terminos">Solo se permiten letras minúsculas y sin acentos.</p>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="botones">
+            <button class="btn-encriptar" type="button" onclick="encriptar()">
+                Encriptar
+            </button>
+            <button class="btn-desencriptar" type="button" onclick="desencriptar()">
+                Desencriptar
+            </button>
+            <button class="btn-limpiar" type="button" onclick="limpiar()">
+                Limpiar
+            </button>
+            <button class="btn-copiar" type="button" onclick="copiar()">
+                Copiar
+            </button>
+        </div>
+    </div>
+
+    <!-- Sección de salida del mensaje encriptado -->
+    <div class="encriptado">
+        <img src="/img/happyalien15.png" alt="happyalien15" id="happyalien15">
+        <div class="mensaje-encriptado">
+            <h2 id="titulo-mensaje">Ningún mensaje fue encontrado</h2>
+            <p id="parrafo">Ingresa el texto que deseas encriptar o desencriptar</p>
+            <textarea 
+                name="mensaje"
+                class="mensaje"
+                id="mensaje"
+                cols="30"
+                rows="10"
+                readonly
+            ></textarea>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Desarrollado por JSHBRNS</p>
+    </footer>
+
+    <script>
+        function encriptar() {
+            let texto = document.getElementById("texto").value.trim();
+            let tituloMensaje = document.getElementById("titulo-mensaje");
+            let parrafo = document.getElementById("parrafo");
+            let happyalien15 = document.getElementById("happyalien15");
+
+            let textoCifrado = texto
+                .replace(/e/g, "enter")
+                .replace(/i/g, "imes")
+                .replace(/a/g, "ai")
+                .replace(/o/g, "ober")
+                .replace(/u/g, "ufat");
+
+            if (texto.length !== 0) {
+                document.getElementById("mensaje").value = textoCifrado;
+                tituloMensaje.textContent = "Texto encriptado con éxito";
+                parrafo.textContent = "";
+                happyalien15.src = "/img/happyalien15.png";
+            } else {
+                happyalien15.src = "/img/screamalien15.png";
+            }
+        }
+
+        function desencriptar() {
+            let texto = document.getElementById("texto").value.trim();
+            let tituloMensaje = document.getElementById("titulo-mensaje");
+            let parrafo = document.getElementById("parrafo");
+            let happyalien15 = document.getElementById("happyalien15");
+
+            let textoDescifrado = texto
+                .replace(/enter/g, "e")
+                .replace(/imes/g, "i")
+                .replace(/ai/g, "a")
+                .replace(/ober/g, "o")
+                .replace(/ufat/g, "u");
+
+            if (texto.length !== 0) {
+                document.getElementById("mensaje").value = textoDescifrado;
+                tituloMensaje.textContent = "Texto desencriptado con éxito";
+                parrafo.textContent = "";
+                happyalien15.src = "/img/happyalien15.png";
+            } else {
+                happyalien15.src = "/img/alienwaiting15.png";
+            }
+        }
+
+        function limpiar() {
+            document.getElementById("texto").value = "";
+            document.getElementById("mensaje").value = "";
+            document.getElementById("titulo-mensaje").textContent = "Ningún mensaje fue encontrado";
+            document.getElementById("parrafo").textContent = "Ingresa el texto que deseas encriptar o desencriptar";
+            document.getElementById("happyalien15").src = "/img/happyalien15.png";
+        }
+
+        function copiar() {
+            let mensaje = document.getElementById("mensaje");
+            mensaje.select();
+            mensaje.setSelectionRange(0, 99999); 
+            navigator.clipboard.writeText(mensaje.value)
+                .then(() => {
+                    alert("Texto copiado con éxito: " + mensaje.value);
+                })
+                .catch(() => {
+                    alert("Hubo un problema al copiar el texto.");
+                });
+        }
+    </script>
+</body>
+</html>
